@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+	// experimental: {
+	// 	removeUnknownAttributes: true,
+	// },
+	images: {
+		remotePatterns: [
+			{
+				hostname: "tailwindui.com",
+			},
+		],
+	},
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
