@@ -17,8 +17,10 @@ import axios from "axios";
 const url = process.env.API_URL_V;
 // console.log(url);
 const res = await axios(`${url}/api/v1/invoice`);
+const auth = await axios(`${url}/api/v1/auth/verify-email`);
+
 // const data = await invoices.json();
-// console.log(res.data.invoices);
+console.log(auth.data);
 
 export default async function Home({ data }) {
 	// const me = useSelector((state) => state.crud.me);

@@ -21,11 +21,13 @@ import { useState } from "react";
 export default function Example() {
 	const [name, setname] = useState("");
 	const [password, setpassword] = useState("");
+	const url = process.env.API_URL_V;
+
 	const data = { email: name, password: password };
 	const login = (e) => {
 		e.preventDefault();
 		axios
-			.post("http://localhost:5000/api/v1/auth/login", data, {
+			.post(`${url}/api/v1/auth/login`, data, {
 				withCredentials: true,
 			})
 			.then((res) => console.log(res.data))
