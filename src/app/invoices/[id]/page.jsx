@@ -6,13 +6,11 @@ import SingleInvoice from "@/components/singleInvoice";
 async function Invoice({ params }) {
 	// const router = useRouter();
 	// const { id } = router.query;
-	const res = await axios(
-		`http://localhost:5000/api/v1/invoice/${params?.id}`,
-		{
-			withCredentials: true,
-			credentials: "include",
-		}
-	);
+	const url = process.env.API_URL_V;
+	const res = await axios(`${url}/api/v1/invoice/${params?.id}`, {
+		withCredentials: true,
+		credentials: "include",
+	});
 	// const data = await invoices.json();
 	// console.log(res.data.invoice);
 	// console.log(params);
