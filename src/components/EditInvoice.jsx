@@ -59,7 +59,7 @@ function EditInvoice({ invoice }) {
 			quantity: input.quantity,
 			price: input.price,
 
-			total: input.total,
+			total: input.quantity * input.price,
 		}));
 		return inputData;
 		// Perform desired action with the input data
@@ -175,7 +175,7 @@ function EditInvoice({ invoice }) {
 							type="text"
 							name="total"
 							contentEditable="false"
-							value={input.total}
+							value={(input.price * input.quantity).toFixed(2)}
 							onChange={(event) => handleInputChange(index, event)}
 							placeholder="Total"
 						/>
@@ -313,7 +313,7 @@ function EditInvoice({ invoice }) {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">
 									Street Address
@@ -341,7 +341,7 @@ function EditInvoice({ invoice }) {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">City</label>
 								<input
@@ -366,7 +366,7 @@ function EditInvoice({ invoice }) {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">
 									Description
@@ -395,13 +395,6 @@ function EditInvoice({ invoice }) {
 									<option value="14">Next 14 day</option>
 									<option value="30">Next 30 day</option>
 								</select>
-								{/* <input required
-									value={toCountry}
-									id="senderStreet"
-									onChange={(e) => settoCountry(e.target.value)}
-									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
-								/> */}
 							</div>
 						</div>
 					</div>
@@ -427,8 +420,10 @@ function EditInvoice({ invoice }) {
 			</button> */}
 				</div>
 				<div className=" flex justify-around text-white capitalize  sticky bottom-0  w-full  bg-[#141625] z-50 p-4     ">
-					<button className="capitalize px-6 py-3 rounded-full bg-[#1e2139]">
-						discard
+					<button
+						onClick={() => dispatch(toggleEditModal(false))}
+						className="capitalize px-6 py-3 rounded-full bg-[#1e2139]">
+						Cancel
 					</button>
 					<button
 						onClick={() => CreateInvoice()}

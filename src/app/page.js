@@ -37,7 +37,7 @@ export default function Example() {
 	};
 	const random = () => {
 		axios
-			.get("http://localhost:5000/set-cookie", {
+			.get(`${url}/set-cookie`, {
 				withCredentials: true,
 			})
 			.then((res) => console.log(res.data))
@@ -48,29 +48,13 @@ export default function Example() {
 
 	return (
 		<>
-			{/*
-		  This example requires updating your template:
-  
-		  ```
-		  <html class="h-full bg-white">
-		  <body class="h-full">
-		  ```
-		*/}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-				<button
+				{/* <button
 					onClick={random}
 					className=" text-xl ">
-					{" "}
-					TEsitng cookies
-				</button>
+					
+				</button> */}
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
-					{/* <Image
-						className="mx-auto h-10 w-auto"
-						height={50}
-						width={50}
-						src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-						alt="Your Company"
-					/> */}
 					<p>LOGO IMAGE</p>
 					<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-100">
 						Sign in to your account
@@ -78,10 +62,7 @@ export default function Example() {
 				</div>
 
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-					<form
-						className="space-y-6"
-						// action="#"
-					>
+					<form className="space-y-6">
 						<div>
 							<label
 								htmlFor="email"

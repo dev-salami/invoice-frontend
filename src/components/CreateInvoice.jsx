@@ -280,7 +280,7 @@ function CreateInvoice() {
 					{/* Bill TO */}
 					<div className="flex flex-col gap-4 mt-8 mb-16">
 						<h1 className="text-purple-400 my-3">Bill To</h1>
-						<div>
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">
 									Client Name
@@ -308,7 +308,7 @@ function CreateInvoice() {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">
 									Street Address
@@ -336,7 +336,7 @@ function CreateInvoice() {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">City</label>
 								<input
@@ -361,7 +361,7 @@ function CreateInvoice() {
 								/>
 							</div>
 						</div>
-						<div className="flex gap-3">
+						<div className="flex sm:flex-row flex-col gap-3">
 							<div className=" flex flex-col gap-1 w-full ">
 								<label className=" text-gray-400 label text-sm">
 									Description
@@ -376,7 +376,7 @@ function CreateInvoice() {
 								/>
 							</div>
 
-							<div className=" flex flex-col gap-1 w-fit">
+							<div className=" flex flex-col gap-1  sm:w-fit">
 								<label className=" text-gray-400 label text-sm">
 									Payment Terms
 								</label>
@@ -422,7 +422,9 @@ function CreateInvoice() {
 			</button> */}
 				</div>
 				<div className=" flex justify-around text-white capitalize  sticky bottom-0  w-full  bg-[#141625] z-50 p-4     ">
-					<button className="capitalize px-6 py-3 rounded-full bg-[#1e2139]">
+					<button
+						onClick={() => dispatch(toggleCreateModal(false))}
+						className="capitalize px-6 py-3 rounded-full bg-[#1e2139]">
 						discard
 					</button>
 					<button

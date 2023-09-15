@@ -3,24 +3,14 @@ import InvoiceItem from "@/components/invoiceItem";
 import NavSelect from "@/components/NavSelect";
 import CreateInvoice from "@/components/CreateInvoice";
 import axios from "axios";
-// import { useSelector } from "react-redux";
-// import { useState } from "react";
-// export const getStaticProps = async () => {
-// 	const res = await axios.get(
-// 		"https://invoice-app-api-tum5.onrender.com/api/v1/invoice"
-// 	);
-// 	const data = await res.data;
-// 	return { props: { data } };
-// };
 
-// };
 const url = process.env.API_URL_V;
 // console.log(url);
 const res = await axios(`${url}/api/v1/invoice`);
-const auth = await axios(`${url}/api/v1/auth/verify-email`);
+// const auth = await axios(`${url}/api/v1/auth/verify-email`);
 
 // const data = await invoices.json();
-console.log(auth.data);
+// console.log(auth.data);
 
 export default async function Home({ data }) {
 	// const me = useSelector((state) => state.crud.me);
@@ -50,7 +40,6 @@ export default async function Home({ data }) {
 							invoice={invoice}
 						/>
 					))}
-					Testing
 				</div>
 			</section>
 		</>
