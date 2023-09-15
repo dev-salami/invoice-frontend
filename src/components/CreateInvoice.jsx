@@ -125,7 +125,7 @@ function CreateInvoice() {
 						<label className=" text-gray-400 label text-sm">Name</label>
 
 						<input
-							className="dark:bg-[#1e2139] w-full border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800  px-2 py-1
+							className="bg-[#1e2139] w-full border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  px-2 py-1
                         "
 							type="text"
 							name="name"
@@ -139,7 +139,7 @@ function CreateInvoice() {
 						<label className=" text-gray-400 label text-sm">Qty</label>
 
 						<input
-							className="dark:bg-[#1e2139] w-10 md:w-20 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800  p-1
+							className="bg-[#1e2139] w-10 md:w-20 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
 							type="text"
 							name="quantity"
@@ -151,7 +151,7 @@ function CreateInvoice() {
 						<label className=" text-gray-400 label text-sm">Price</label>
 
 						<input
-							className="dark:bg-[#1e2139] w-16 sm:w-28 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800  p-1
+							className="bg-[#1e2139] w-16 sm:w-28 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
 							type="text"
 							name="price"
@@ -165,7 +165,7 @@ function CreateInvoice() {
 						<label className=" text-gray-400 label text-sm">Total</label>
 
 						<input
-							className="dark:bg-[#1e2139] w-16 sm:w-28   border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800  p-1
+							className="bg-[#1e2139] w-16 sm:w-28   border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
 							type="text"
 							name="total"
@@ -234,7 +234,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setfromAddress(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 							<div className=" flex flex-col gap-1  ">
@@ -247,7 +247,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setfromCode(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 						</div>
@@ -260,7 +260,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setfromCity(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 
@@ -272,7 +272,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setfromCountry(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 						</div>
@@ -291,7 +291,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setName(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 							<div className=" flex flex-col gap-1 w-full ">
@@ -304,7 +304,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setEmail(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 						</div>
@@ -319,7 +319,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => settoAddress(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 							<div className=" flex flex-col gap-1  ">
@@ -332,7 +332,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => settoCode(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 						</div>
@@ -345,7 +345,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => settoCity(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 
@@ -357,7 +357,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => settoCountry(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 						</div>
@@ -372,7 +372,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => setdescription(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/>
 							</div>
 
@@ -382,7 +382,7 @@ function CreateInvoice() {
 								</label>
 								<select
 									onChange={(e) => setpayment__terms(e.target.value)}
-									className={`dark:bg-[#1e2139] w-40 py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] w-40 py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 									name="payment__terms"
 									id="payment">
 									<option value="1">Next 1 day</option>
@@ -395,7 +395,7 @@ function CreateInvoice() {
 									id="senderStreet"
 									onChange={(e) => settoCountry(e.target.value)}
 									type="text"
-									className={`dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400 border-gray-300 focus:outline-none  dark:border-gray-800 `}
+									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 								/> */}
 							</div>
 						</div>

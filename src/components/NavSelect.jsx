@@ -17,7 +17,7 @@ function NavSelect() {
 			</div>
 			<div className="flex gap-3  ">
 				<select
-					className="rounded-2xl bg-transparent h-fit my-auto p-2 font-semibold  text-sm"
+					className="rounded-2xl bg-transparent h-fit my-auto px-4 py-2 font-semibold  text-sm"
 					name="status"
 					id="">
 					<option
