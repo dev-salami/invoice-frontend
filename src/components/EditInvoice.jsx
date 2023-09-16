@@ -1,19 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import { generateID, getFormattedDate, getFutureDate } from "@/helper/utils";
+import { getFormattedDate, getFutureDate } from "@/helper/utils";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleCreateModal, toggleEditModal } from "@/redux/features/crudSlice";
-import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { toggleEditModal } from "@/redux/features/crudSlice";
+import hasEmptyOrZeroValues from "@/helper/validate";
+const url = process.env.API_URL;
 
 function EditInvoice({ invoice }) {
-	const { createModalOpen } = useSelector((state) => state.crud);
 	const dispatch = useDispatch();
-
 	const [loading, setloading] = useState(false);
 	const [successMsg, setsuccessMsg] = useState("");
 	const [errorMsg, seterrorMsg] = useState("");
+	const [Msg, setMsg] = useState(false);
+
 	const [fromAddress, setfromAddress] = useState(invoice?.senderAddress.street);
 	const [fromCode, setfromCode] = useState(invoice?.senderAddress.city);
 	const [fromCity, setfromCity] = useState(invoice?.senderAddress.postCode);
@@ -27,7 +28,7 @@ function EditInvoice({ invoice }) {
 	const [toCity, settoCity] = useState(invoice?.senderAddress.postCode);
 	const [toCountry, settoCountry] = useState(invoice?.senderAddress.country);
 	const [description, setdescription] = useState(invoice?.description);
-	const [payment__terms, setpayment__terms] = useState(invoice.payment__terms);
+	const [payment__terms, setpayment__terms] = useState(invoice.paymentTerms);
 
 	// section test
 	const [inputs, setInputs] = useState([
@@ -65,21 +66,24 @@ function EditInvoice({ invoice }) {
 		// Perform desired action with the input data
 		// console.log(inputData);
 	};
-	const CreateInvoice = () => {
-		const id = generateID();
+	const EditInvoice = () => {
+		// const id = generateID();
 		const date = getFormattedDate();
 		const due = getFutureDate(+payment__terms);
 		const items = itemListSubmit();
+		const priceList = items.map((item) => item.total);
+		const amount = priceList.reduce((acc, cur) => acc + cur);
+		console.log(due, date);
 
 		const dataMag = {
-			id: id,
+			id: invoice.id,
 			createdAt: date,
 			paymentDue: due,
 			description: description,
 			paymentTerms: payment__terms,
 			clientName: Name,
 			clientEmail: Email,
-			status: "draft",
+			status: "paid",
 			senderAddress: {
 				street: fromAddress,
 				city: fromCity,
@@ -93,39 +97,50 @@ function EditInvoice({ invoice }) {
 				country: toCountry,
 			},
 			items: items,
-			total: 3102.04,
+			total: amount,
 		};
-		console.log(dataMag);
-		setloading(true);
 
-		axios
-			.post("https://invoice-app-api-tum5.onrender.com/api/v1/invoice", dataMag)
-			.then((res) => {
-				console.log(res.data);
-				setloading(false);
-				setsuccessMsg("Your Invoice has successfully been created.");
-				setTimeout(() => {
-					setshowCreateComponent(false);
-					setsuccessMsg("");
-				}, 3000);
-			})
-			.catch((err) => {
-				console.log(err);
-				setloading(false);
-				seterrorMsg("An error has occured");
-				setTimeout(() => {
-					setshowCreateComponent(false);
-					seterrorMsg("");
-				}, 3000);
-			});
+		const bool = hasEmptyOrZeroValues(dataMag);
+		setMsg(bool);
+		setTimeout(() => {
+			setMsg(false);
+		}, 4000);
+
+		const editRequest = () => {
+			axios
+				.patch(
+					`https://invoice-app-api-tum5.onrender.com/api/v1/invoice/${invoice.id}`,
+					dataMag
+				)
+				.then((res) => {
+					console.log(res.data);
+					setloading(false);
+					setsuccessMsg("Invoice Updated Successfully ");
+					setTimeout(() => {
+						dispatch(toggleEditModal(false));
+						setsuccessMsg("");
+					}, 3000);
+				})
+				.catch((err) => {
+					console.log(err?.response);
+					setloading(false);
+					seterrorMsg("An error has occured");
+					setTimeout(() => {
+						dispatch(toggleEditModal(false));
+						seterrorMsg("");
+					}, 3000);
+				});
+		};
+
+		if (bool === false) {
+			editRequest();
+		}
 	};
 
 	const renderInputs = () => {
 		return inputs.map((input, index) => (
-			<>
-				<div
-					className="flex px-4  gap-3"
-					key={index}>
+			<div key={index}>
+				<div className="flex px-4  gap-3">
 					<div className=" flex flex-col gap-1 w-full ">
 						<label className=" text-gray-400 label text-sm">Name</label>
 
@@ -146,7 +161,7 @@ function EditInvoice({ invoice }) {
 						<input
 							className="bg-[#1e2139] w-10 md:w-20 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
-							type="text"
+							type="number"
 							name="quantity"
 							value={input.quantity}
 							onChange={(event) => handleInputChange(index, event)}
@@ -158,7 +173,7 @@ function EditInvoice({ invoice }) {
 						<input
 							className="bg-[#1e2139] w-16 sm:w-28 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
-							type="text"
+							type="number"
 							name="price"
 							value={input.price}
 							onChange={(event) => handleInputChange(index, event)}
@@ -172,7 +187,7 @@ function EditInvoice({ invoice }) {
 						<input
 							className="bg-[#1e2139] w-16 sm:w-28   border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800  p-1
                         "
-							type="text"
+							type="number"
 							name="total"
 							contentEditable="false"
 							value={(input.price * input.quantity).toFixed(2)}
@@ -196,7 +211,7 @@ function EditInvoice({ invoice }) {
 					)}
 				</div>
 				<hr className="border my-4  " />
-			</>
+			</div>
 		));
 	};
 
@@ -206,22 +221,24 @@ function EditInvoice({ invoice }) {
 		<section>
 			<div
 				onClick={() => dispatch(toggleEditModal(false))}
-				className="fixed inset-0 bg-black/90"></div>
-			{/* <h1 className=" text-xl h-28 fixed bg-[#141625] z-50 p-8 border-red-500 border-2 top-0 w-full font-bold sm:text-2xl ">
-				Create Invoice
-			</h1> */}
-			<div className="bg-[#141625] fixed top-0 overflow-y-scroll scrollbar-hide bottom-0 left-0 w-full md:w-[750px] right-0  rounded-r-3xl lg:pl-[100px]">
-				<div className=" text-xl  sticky top-0  w-full  bg-[#141625] z-50 p-8 text-center    font-bold sm:text-2xl ">
+				className="fixed inset-0 z-10 bg-black/95"></div>
+
+			<div className="bg-[#141625] fixed z-[999] top-0 overflow-y-scroll scrollbar-hide bottom-0 left-0 w-full md:w-[750px] right-0  rounded-r-3xl lg:pl-[100px]">
+				<div className=" text-xl  sticky top-0  w-full  bg-[#141625]  p-8 text-center    font-bold sm:text-2xl ">
 					<h1>Edit Invoice</h1>
 					{successMsg && (
-						<p className="text-sm font-bold text-green-500">{successMsg}</p>
+						<p className="text-2xl font-bold text-green-500">{successMsg}</p>
+					)}
+					{Msg && (
+						<p className="  text-2xl  text-yellow-600 px-6 py-2 font-bold ">
+							Form is Incomplete
+						</p>
 					)}
 					{errorMsg && (
-						<p className="text-sm font-bold text-red-500">{errorMsg}</p>
+						<p className="text-2xl font-bold text-red-500">{errorMsg}</p>
 					)}
 				</div>
 
-				{/* <button onClick={() => CreateInvoice()}>test</button> */}
 				<form
 					action=""
 					className=" px-4 mt-12">
@@ -236,7 +253,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={fromAddress}
-									id="senderStreet"
+									id="fromAddress"
 									onChange={(e) => setfromAddress(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -249,7 +266,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={fromCode}
-									id="senderStreet"
+									id="fromCode"
 									onChange={(e) => setfromCode(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -262,7 +279,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={fromCity}
-									id="senderStreet"
+									id="fromCity"
 									onChange={(e) => setfromCity(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -274,7 +291,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={fromCountry}
-									id="senderStreet"
+									id="fromCountry"
 									onChange={(e) => setfromCountry(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -293,7 +310,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={Name}
-									id="senderStreet"
+									id="Name"
 									onChange={(e) => setName(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -306,7 +323,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={Email}
-									id="senderStreet"
+									id="Email"
 									onChange={(e) => setEmail(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -321,7 +338,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={toAddress}
-									id="senderStreet"
+									id="toAddress"
 									onChange={(e) => settoAddress(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -334,7 +351,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={toCode}
-									id="senderStreet"
+									id="toCode"
 									onChange={(e) => settoCode(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -347,7 +364,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={toCity}
-									id="senderStreet"
+									id="toCity"
 									onChange={(e) => settoCity(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -359,7 +376,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={toCountry}
-									id="senderStreet"
+									id="toCountry"
 									onChange={(e) => settoCountry(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -374,7 +391,7 @@ function EditInvoice({ invoice }) {
 								<input
 									required
 									value={description}
-									id="senderStreet"
+									id="description"
 									onChange={(e) => setdescription(e.target.value)}
 									type="text"
 									className={`bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
@@ -386,9 +403,13 @@ function EditInvoice({ invoice }) {
 									Payment Terms
 								</label>
 								<select
-									onChange={(e) => setpayment__terms(e.target.value)}
+									onChange={(e) => {
+										setpayment__terms(e.target.value);
+										console.log(e.target.value);
+									}}
 									className={`bg-[#1e2139] w-40 py-2 px-4 border-[.2px] rounded-lg  focus:outline-purple-400  focus:outline-none  border-gray-800 `}
 									name="payment__terms"
+									value={payment__terms}
 									id="payment">
 									<option value="1">Next 1 day</option>
 									<option value="7">Next 7 day</option>
@@ -426,7 +447,12 @@ function EditInvoice({ invoice }) {
 						Cancel
 					</button>
 					<button
-						onClick={() => CreateInvoice()}
+						onClick={() => console.log(url)}
+						className="capitalize px-6 py-3 rounded-full bg-[#1e2139]">
+						Test
+					</button>
+					<button
+						onClick={() => EditInvoice()}
 						className="capitalize  px-3 py-2 rounded-full bg-purple-500 flex gap-4 items-center">
 						<span>save & send</span>
 						{loading && <AiOutlineLoading3Quarters className="animate-spin" />}
