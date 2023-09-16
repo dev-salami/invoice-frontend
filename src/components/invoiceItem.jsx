@@ -3,6 +3,7 @@ import rightArrow from "../../public/assets/icon-arrow-right.svg";
 import PaidStatus from "./PaidStatus";
 import Link from "next/link";
 import Image from "next/image";
+import { formatDBDate } from "@/helper/utils";
 
 function invoiceItem({ invoice }) {
 	return (
@@ -18,7 +19,7 @@ function invoiceItem({ invoice }) {
 					</h2>
 
 					<h2 className=" text-sm text-gray-400 font-light ml-6">
-						Due {invoice.paymentDue}
+						Due {formatDBDate(invoice.paymentDue)}
 					</h2>
 
 					<h2 className=" text-sm text-gray-400 font-light ml-10">
@@ -48,7 +49,7 @@ function invoiceItem({ invoice }) {
 					</h2>
 
 					<h2 className=" text-sm text-gray-400 font-light mt-3 ">
-						Due {invoice.paymentDue}
+						Due {formatDBDate(invoice.paymentDue)}
 					</h2>
 					<h1 className=" text-xl  text-white">£ {invoice.total}</h1>
 				</div>

@@ -2,32 +2,19 @@
 // import { useRouter, useNavigate } from "next/router";
 import React from "react";
 import PaidStatus from "./PaidStatus";
-import { formatDBDate } from "@/helper/utils";
+import { downloadPDF, formatDBDate } from "@/helper/utils";
 import DeleteModal from "./DeleteModal";
 import { toggleDeleteModal, toggleEditModal } from "@/redux/features/crudSlice";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteInvoice from "./EditInvoice";
 import EditInvoice from "./EditInvoice";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 function SingleInvoice({ invoice }) {
 	const dispatch = useDispatch();
-	// const router = useRouter();
 
 	const { deleteModalOpen, editModalOpen } = useSelector((state) => state.crud);
 
-	// const response = await axios(
-	// 	`https://invoice-app-api-tum5.onrender.com/api/v1/invoice/${id}`
-	// );
-	// const data = await response.json();
-	// console.log(invoice);
-	// const router = useRouter();
-	// const { id } = router.query;
-	// const navigate = useNavigate();
-	// console.log(id);
-	// const location = useLocation()
-	// const dispatch = useDispatch()
 	return (
 		<div className="text-sm font-light">
 			{deleteModalOpen ? <DeleteModal id={invoice.id} /> : null}
@@ -42,9 +29,7 @@ function SingleInvoice({ invoice }) {
 					transition={{ duration: 0.5 }}
 					className="bg-[#141625] mx-auto duration-300 min-h-screen  py-[34px] px-2 md:px-8 lg:px-12 max-w-3xl lg:py-[72px] ">
 					<div className="">
-						<button
-							// onClick={() => router.back()}
-							className=" flex items-center space-x-4  group  text-white font-thin ">
+						<button className=" flex items-center space-x-4  group  text-white font-thin ">
 							{/* <img className='' src={leftArrow} /> */}
 							<Link
 								href="/invoices"
@@ -58,15 +43,22 @@ function SingleInvoice({ invoice }) {
 								<h1 className="  text-gray-400">Status</h1>
 								<PaidStatus type={invoice?.status} />
 							</div>
-							<div className=" md:block hidden">
+							<div className=" ">
 								<button
 									onClick={() => dispatch(toggleEditModal(true))}
 									className=" text-[#7e88c3] text-center bg-[#252945] hover:opacity-80   p-3 px-7 rounded-full ">
 									Edit
 								</button>
 								<button
+									onClick={() =>
+										downloadPDF({ name: invoice.id, style: "full-invoice" })
+									}
+									className=" text-[#7e88c3] text-center bg-[#252945] hover:opacity-80   p-3 px-7 rounded-full ">
+									Download Invoice
+								</button>
+								<button
 									onClick={() => dispatch(toggleDeleteModal(true))}
-									className=" ml-3 text-center  text-white bg-red-500 hover:opacity-80 p-3 px-7 rounded-full">
+									className=" -z-50 ml-3 text-center  text-white bg-red-500 hover:opacity-80 p-3 px-7 rounded-full">
 									Delete
 								</button>
 								{invoice?.status === "pending" && (
@@ -79,7 +71,7 @@ function SingleInvoice({ invoice }) {
 							</div>
 						</div>
 
-						<div className=" mt-4 rounded-lg w-full  px-6 py-6  bg-[#1e2139]">
+						<div className="full-invoice mt-4 rounded-lg w-full  px-6 py-6  bg-[#1e2139]">
 							<div className=" flex flex-col md:flex-row items-start justify-between w-full ">
 								<div>
 									<h1 className=" font-semibold text-white text-xl">
@@ -192,7 +184,7 @@ function SingleInvoice({ invoice }) {
 									</div>
 								))}
 							</div>
-							<div className=" p-10 font-semibold text-white rounded-lg rounded-t-none justify-between flex  bg-gray-700 ">
+							<div className=" p-10 font-semibold text-white rounded-lg rounded-t-none justify-between flex  bg-black ">
 								<h3 className=" text-xl ">Amount Due</h3>
 
 								<h1 className=" text-3xl">£{invoice.total}</h1>
