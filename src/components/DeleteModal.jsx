@@ -13,11 +13,13 @@ function DeleteModal({ id }) {
 	const url = process.env.API_URL_V;
 	const deleteInvoice = () => {
 		axios
-			.delete(`http://localhost:5000/api/v1/invoice/${id}`)
+			.delete(`https://invoice-app-api-tum5.onrender.com/api/v1/invoice/${id}`)
 			.then((res) => {
 				console.log(res);
 				setmsg("Invoice deleted successfully");
 				setTimeout(() => {
+					dispatch(toggleDeleteModal(false));
+
 					router.push("/invoices");
 				}, 2000);
 			})
@@ -25,6 +27,8 @@ function DeleteModal({ id }) {
 				console.log(err);
 				setmsg("An error occurred");
 				setTimeout(() => {
+					dispatch(toggleDeleteModal(false));
+
 					router.push("/invoices");
 				}, 2000);
 			});
@@ -36,8 +40,8 @@ function DeleteModal({ id }) {
 				onClick={() => {
 					dispatch(toggleDeleteModal(false));
 				}}
-				className="fixed inset-0 bg-black/70  "></div>
-			<div className=" z-10 fixed inset-0 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 max-w-sm  p-8 rounded-xl h-fit bg-gray-800 ">
+				className="fixed inset-0 bg-black/90  "></div>
+			<div className=" z-50 fixed inset-0 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 max-w-sm  p-8 rounded-xl h-fit bg-gray-800 ">
 				{msg ? (
 					<p className="text-white font-semibold">{msg}</p>
 				) : (
@@ -45,13 +49,12 @@ function DeleteModal({ id }) {
 						<h2 className="text-red-600 font-semibold">Confirm Deletion</h2>
 
 						<p className="text-gray-400 text-xs font-semibold">
-							{`Are you sure you want to delete invoice RT3080? This action cannot be undone.`}
+							{`Are you sure you want to delete invoice ${id}? This action cannot be undone.`}
 						</p>
 						<div className="flex justify-around w-full font-semibold text-sm">
 							<button
 								onClick={() => {
-									dispatch(toggleDeleteModal(false));
-									console.log("delete modal");
+									deleteInvoice();
 								}}
 								className="rounded-md text-white bg-red-500 px-5 py-1">
 								Delete

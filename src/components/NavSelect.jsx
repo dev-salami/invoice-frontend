@@ -4,7 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCreateModal } from "@/redux/features/crudSlice";
 
-function NavSelect() {
+function NavSelect({ invoiceLength }) {
 	// const { toggleCreateModal } = useSelector((state) => state.crud);
 	const dispatch = useDispatch();
 	const me = () => dispatch(toggleCreateModal(false));
@@ -13,7 +13,7 @@ function NavSelect() {
 		<div className="m-8 p-6  lg:mt-10 lg:w-[70%] mx-auto flex justify-between items-center px-6">
 			<div className="flex flex-col  text-white justify-center ">
 				<div className="font-semibold text-lg">Invoices</div>
-				<div className="text-white">{`There are 45 total invoices.`}</div>
+				<div className="text-white">{`There are ${invoiceLength} total invoices.`}</div>
 			</div>
 			<div className="flex gap-3  ">
 				<select
