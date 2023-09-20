@@ -7,6 +7,7 @@ import moon from "../../public/assets/icon-moon.svg";
 import profile from "../../public/assets/image-avatar.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 function TopBar() {
 	const [colorTheme, setTheme] = useState(true);
 	const transition = {
@@ -26,40 +27,7 @@ function TopBar() {
 					alt="logo-image"
 				/>
 
-				{/* Right side */}
-				<div className="  flex  items-center  ">
-					{/* darkMode Button */}
-
-					{colorTheme === "light" ? (
-						<motion.img
-							// onClick={toggleDarkMode}
-							initial={{ scale: 0.6, rotate: 90 }}
-							animate={{ scale: 1, rotate: 360, transition }}
-							whileTap={{ scale: 0.9, rotate: 15 }}
-							src={moon}
-							className="cursor-pointer h-6"
-						/>
-					) : (
-						<motion.img
-							className="cursor-pointer h-7"
-							// onClick={toggleDarkMode}
-							whileTap={{ scale: 0.9, rotate: 15 }}
-							initial={{ rotate: 45 }}
-							animate={{ rotate: 360, transition }}
-							src={sun}
-						/>
-					)}
-
-					<div className=" h-[80px] border-dotted border-l border-[#494e6e] mx-6"></div>
-
-					<div className=" relative  ">
-						<Image
-							alt="profile"
-							src={profile}
-							className="h-[50px] w-[50px] rounded-full"
-						/>
-					</div>
-				</div>
+				<UserButton afterSignOutUrl="/" />
 			</header>
 		</div>
 	);

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCreateModal } from "@/redux/features/crudSlice";
 import hasEmptyOrZeroValues from "@/helper/validate";
 
-function CreateInvoice() {
+function CreateInvoice({ userId }) {
 	const url = process.env.API_URL_V;
 
 	const { createModalOpen } = useSelector((state) => state.crud);
@@ -73,6 +73,7 @@ function CreateInvoice() {
 		const amount = priceList.reduce((acc, cur) => acc + cur);
 
 		const dataMag = {
+			author: userId,
 			id: id,
 			createdAt: date,
 			paymentDue: due,
@@ -107,7 +108,12 @@ function CreateInvoice() {
 			axios
 				.post(
 					`https://invoice-app-api-tum5.onrender.com/api/v1/invoice`,
-					dataMag
+					dataMag,
+					{
+						headers: {
+							auth: userId,
+						},
+					}
 				)
 				.then((res) => {
 					console.log(res.data);

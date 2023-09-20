@@ -8,7 +8,7 @@ import { toggleEditModal } from "@/redux/features/crudSlice";
 import hasEmptyOrZeroValues from "@/helper/validate";
 const url = process.env.API_URL;
 
-function EditInvoice({ invoice }) {
+function EditInvoice({ invoice, userId }) {
 	const dispatch = useDispatch();
 	const [loading, setloading] = useState(false);
 	const [successMsg, setsuccessMsg] = useState("");
@@ -110,7 +110,12 @@ function EditInvoice({ invoice }) {
 			axios
 				.patch(
 					`https://invoice-app-api-tum5.onrender.com/api/v1/invoice/${invoice.id}`,
-					dataMag
+					dataMag,
+					{
+						headers: {
+							auth: userId,
+						},
+					}
 				)
 				.then((res) => {
 					console.log(res.data);

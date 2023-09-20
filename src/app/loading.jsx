@@ -5,7 +5,7 @@ function loading() {
 		<div
 			role="status"
 			className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center">
-			<div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+			{/* <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
 				<svg
 					className="w-10 h-10 text-gray-200 dark:text-gray-600"
 					aria-hidden="true"
@@ -22,8 +22,10 @@ function loading() {
 				<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
 				<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
 				<div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+			</div> */}
+			<div className="text-4xl text-green-500 font-bold flex justify-center items-center ">
+				<span>Loading...</span>
 			</div>
-			<span className="sr-only">Loading...</span>
 		</div>
 	);
 }

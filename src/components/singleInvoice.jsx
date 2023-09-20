@@ -10,15 +10,25 @@ import DeleteInvoice from "./EditInvoice";
 import EditInvoice from "./EditInvoice";
 import Link from "next/link";
 
-function SingleInvoice({ invoice }) {
+function SingleInvoice({ invoice, userId }) {
 	const dispatch = useDispatch();
 
 	const { deleteModalOpen, editModalOpen } = useSelector((state) => state.crud);
 
 	return (
 		<div className="text-sm font-light">
-			{deleteModalOpen ? <DeleteModal id={invoice.id} /> : null}
-			{editModalOpen ? <EditInvoice invoice={invoice} /> : null}
+			{deleteModalOpen ? (
+				<DeleteModal
+					id={invoice.id}
+					userId={userId}
+				/>
+			) : null}
+			{editModalOpen ? (
+				<EditInvoice
+					invoice={invoice}
+					userId={userId}
+				/>
+			) : null}
 
 			{invoice && (
 				<div

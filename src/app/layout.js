@@ -3,9 +3,9 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import SideBar from "@/components/sideBar";
 import { ReduxProvider } from "@/redux/provider";
-import { AuthProvider } from "@/helper/Providers";
-// import { Provider } from "react-redux";
-// import { store } from "@/redux/store";
+// import { AuthProvider } from "@/helper/Providers";
+import { ClerkProvider } from "@clerk/nextjs";
+import { light } from "@clerk/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +16,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<TopBar />
-				<SideBar />
-				<ReduxProvider>{children}</ReduxProvider>
+		<ClerkProvider
+			appearance={{
+				baseTheme: light,
+			}}>
+			<html lang="en">
+				<body className={inter.className}>
+					<TopBar />
+					<SideBar />
+					<ReduxProvider>{children}</ReduxProvider>
 
-				{/* <AuthProvider>
+					{/* <AuthProvider>
 				</AuthProvider>{" "} */}
-				{/* <Provider store={store}>{children}</Provider> */}
-			</body>
-		</html>
+					{/* <Provider store={store}>{children}</Provider> */}
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

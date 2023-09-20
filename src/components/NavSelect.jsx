@@ -3,6 +3,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCreateModal } from "@/redux/features/crudSlice";
+import Link from "next/link";
 
 function NavSelect({ invoiceLength }) {
 	// const { toggleCreateModal } = useSelector((state) => state.crud);
@@ -12,7 +13,11 @@ function NavSelect({ invoiceLength }) {
 	return (
 		<div className="m-8 p-6  lg:mt-10 lg:w-[70%] mx-auto flex justify-between items-center px-6">
 			<div className="flex flex-col  text-white justify-center ">
-				<div className="font-semibold text-lg">Invoices</div>
+				<Link
+					href="/invoices"
+					className="font-semibold text-lg">
+					Invoices
+				</Link>
 				<div className="text-white">{`There are ${invoiceLength} total invoices.`}</div>
 			</div>
 			<div className="flex gap-3  ">
