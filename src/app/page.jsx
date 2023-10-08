@@ -118,20 +118,22 @@
 // }
 import Link from "next/link";
 import { UserButton, auth } from "@clerk/nextjs";
+import invoice from "../../public/assets/invoice.webp";
+import Image from "next/image";
 
 const Header = async ({ username }) => {
 	const { userId } = auth();
 
 	return (
-		<nav className="flex items-center justify-between px-6 py-4 mb-5  max-w-lg mx-auto">
-			<div className="flex items-center">
+		<section className="  container   my-6  mx-auto">
+			{/* <div className="flex items-center">
 				<Link href="/">
 					<div className="text-lg font-bold text-white uppercase">
 						Invoice Generator App
 					</div>
 				</Link>
-			</div>
-			<div className="flex items-center justify-center text-white">
+			</div> */}
+			{/* <div className="flex items-center justify-center text-white">
 				{!userId && (
 					<>
 						<Link
@@ -146,20 +148,47 @@ const Header = async ({ username }) => {
 						</Link>
 					</>
 				)}
-				{/* {userId && (
+			
+			</div> */}
+			<div className="text-center max-w-xl flex flex-col gap-4 mx-auto w-fit ">
+				<h1 className="text-4xl font-bold">Invoicea</h1>
+				<h2 className="text-2xl font-bold">
+					Start Generating Invoices In Few Steps
+				</h2>
+				<p className="text-gray-400 ">
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores
+					repudiandae quo, nesciunt exercitationem quae sapiente reiciendis quas
+					possimus aperiam? Non.
+				</p>
+			</div>
+			<div className="w-fit mx-auto my-4 flex  gap-4">
+				{!userId ? (
 					<>
 						<Link
-							href="profile"
-							className="text-gray-300 hover:text-white mr-4">
-							Profile
+							href="sign-up"
+							className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
+							Sign Up
+						</Link>
+						<Link
+							href="sign-in"
+							className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
+							Sign In
 						</Link>
 					</>
-				)} */}
-				{/* <div className="ml-auto">
-					<UserButton afterSignOutUrl="/" />
-				</div> */}
+				) : (
+					<Link
+						href="invoices"
+						className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
+						View Invoices
+					</Link>
+				)}
 			</div>
-		</nav>
+			<div className="w-fit mx-auto">
+				<Image
+					alt="header-image"
+					src={invoice}></Image>
+			</div>
+		</section>
 	);
 };
 
