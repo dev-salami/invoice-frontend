@@ -165,19 +165,19 @@ const Header = async ({ username }) => {
 				{!userId ? (
 					<>
 						<Link
-							href="sign-up"
+							href="/sign-up"
 							className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
 							Sign Up
 						</Link>
 						<Link
-							href="sign-in"
+							href="/sign-in"
 							className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
 							Sign In
 						</Link>
 					</>
 				) : (
 					<Link
-						href="invoices"
+						href="/invoices"
 						className=" border text-xs px-6 py-2 rounded-md w-fit bg-black/40">
 						View Invoices
 					</Link>

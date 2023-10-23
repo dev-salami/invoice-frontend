@@ -31,15 +31,14 @@ function SideBar() {
 			{/* SideBar */}
 			<div className=" z-50 hidden lg:block ">
 				<div className=" fixed  z-50  w-[80px] rounded-r-3xl  flex-col  top-0 left-0 h-screen dark:bg-[#1E2139]  bg-[#373b53]">
-					<div className=" h-full w-full flex flex-col  pt-6 justify-between items-center">
+					<div className=" h-full w-full flex flex-col  pb-6 justify-between items-center">
 						{/* Logo */}
-						<UserButton afterSignOutUrl="/" />
-
 						<Image
 							src={logo}
 							alt="logo"
 							className="relative"
 						/>
+						<UserButton afterSignOutUrl="/" />
 
 						{/* Bottom Side */}
 					</div>

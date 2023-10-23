@@ -59,13 +59,13 @@ function SingleInvoice({ invoice, userId }) {
 									className=" text-[#7e88c3] text-center bg-[#252945] hover:opacity-80   p-3 px-7 rounded-full ">
 									Edit
 								</button>
-								<button
+								{/* <button
 									onClick={() =>
 										downloadPDF({ name: invoice.id, style: "full-invoice" })
 									}
 									className=" text-[#7e88c3] text-center bg-[#252945] hover:opacity-80   p-3 px-7 rounded-full ">
 									Download Invoice
-								</button>
+								</button> */}
 								<button
 									onClick={() => dispatch(toggleDeleteModal(true))}
 									className=" -z-50 ml-3 text-center  text-white bg-red-500 hover:opacity-80 p-3 px-7 rounded-full">
